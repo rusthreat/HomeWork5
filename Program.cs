@@ -522,10 +522,28 @@ namespace Example_005
         // 1. Ответ: А
         // 2. ГГГГ, ДДДД
         //
+
+        /// <summary>
+        /// Задание 2. Метод, принимающий  текст и возвращающий слово, содержащее минимальное количество букв
+        /// </summary>
+        /// 
+        static string GetShortWord(string text)
+        {
+
+
+        }
+
+        /// <summary>
+        /// Задание 2. Метод, принимающий  текст и возвращающий слово, содержащее минимальное количество букв
+        /// </summary>
         static void LengthSearch()
         {
-        
-        
+            Console.WriteLine("Введите строку:");
+            string text = Console.ReadLine()
+
+            text = GetShortWord(text);
+
+            Console.WriteLine(text);
         }
         #endregion
 
