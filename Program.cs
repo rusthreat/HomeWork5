@@ -524,13 +524,103 @@ namespace Example_005
         //
 
         /// <summary>
-        /// Задание 2. Метод, принимающий  текст и возвращающий слово, содержащее минимальное количество букв
+        /// Задание 2.1. Метод, принимающий  текст и возвращающий слово, содержащее минимальное количество букв
         /// </summary>
         /// 
         static string GetShortWord(string text)
         {
+            string short_word = text;
+            string new_word = "";
 
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i] == ' ')
+                {
+                    if (new_word.Length < short_word.Length)
+                    {
+                        short_word = new_word;
+                    }
+                    new_word = "";
+                }
+                else
+                {
+                    new_word = new_word + text[i];
+                }
 
+            }
+
+            // обработка ситуации, когда самое короткое слово - последнее
+            if (new_word.Length < short_word.Length)
+            {
+                return new_word;
+            }
+            else
+            {
+                return short_word;
+            }
+        }
+
+        /// <summary>
+        /// Задание 2.2. Метод, принимающий  текст и возвращающий самые длинные слова
+        /// </summary>
+        /// 
+        static string[] GetLongWords(string text)
+        {
+            // разделение строки на слова методом Split
+            string[] array = text.Split(new char[] { ' ',',','.'}, StringSplitOptions.RemoveEmptyEntries);
+
+            int len = 0;
+
+            // поиск максимальной длины
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (len < array.Length)
+                {
+                    len = array.Length;
+                }
+                Console.WriteLine(array[i]);
+            }
+
+            string[] result = new string[];
+            int n = 0;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (len == array.Length)
+                {
+                    result[n] = array[i];
+                    n++;
+                }
+                Console.WriteLine(array[i]);
+            }
+
+            return result;
+            //for (int i = 0; i < text.Length; i++)
+            //{
+            //    if (text[i] == ' ')
+            //    {
+            //        if (new_word.Length < short_word.Length)
+            //        {
+            //            short_word = new_word;
+            //        }
+            //        new_word = "";
+            //    }
+            //    else
+            //    {
+            //        new_word = new_word + text[i];
+            //    }
+
+            //}
+
+            // обработка ситуации, когда самое короткое слово - последнее
+            //if (new_word.Length < short_word.Length)
+            //{
+            //    return new_word;
+            //}
+            //else
+            //{
+            //    return short_word;
+            //}
         }
 
         /// <summary>
@@ -538,12 +628,55 @@ namespace Example_005
         /// </summary>
         static void LengthSearch()
         {
-            Console.WriteLine("Введите строку:");
-            string text = Console.ReadLine()
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("Задание 2. Выберите задание:");
+                Console.WriteLine("1 - Задание 2.1. (Поиск самого короткого слова)");
+                Console.WriteLine("2 - Задание 2.2. (Удаление лишних букв в словах)");
+                int item = int.Parse(Console.ReadLine());
 
-            text = GetShortWord(text);
+                if (item == 1)
+                {
+                    Console.WriteLine("Введите строку:");
+                    string text = Console.ReadLine();
 
-            Console.WriteLine(text);
+                    text = GetShortWord(text);
+
+                    Console.WriteLine($"\nСамое короткое слово: {text}");
+                }
+                else if (item == 2)
+                {
+                    Console.WriteLine("Введите строку:");
+                    string text = Console.ReadLine();
+
+                    string[] array = GetLongWords(text);
+
+                    Console.WriteLine($"Самые длинные слова:");
+                    foreach(string word in array)
+                    {
+                        Console.WriteLine(word);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Укажите верное значение");
+                    Console.ReadKey();
+                    continue;
+                }
+
+                Console.WriteLine("\n\nВернуться в меню Задания 1? y/n");
+                str = Console.ReadLine();
+
+                if (str == "y")
+                {
+                    continue;
+                }
+                else
+                {
+                    break;
+                }
+            }
         }
         #endregion
 
@@ -554,10 +687,38 @@ namespace Example_005
         // Пример: ПППОООГГГООООДДДААА >>> ПОГОДА
         // Пример: Ххххоооорррооошшшиий деееннннь >>> хороший день
         // 
+        static string DeleteLetters(string text)
+        {
+            for (int i = 0; i < text.Length; i++)
+            {
+                string str = "";
+                char prev;
+
+                if (i == 0)
+                {
+                    str = str + text[i];
+                    prev = text[i];
+                }
+                else
+                {
+                    if (text[i] != text[i - 1])
+                    {
+                        str = str + text[i];
+                    }
+                }
+            }
+            return str;
+        }
+
         static void ShortText()
         {
-        
-        
+            Console.WriteLine("Задание 3. Выберите задание:");
+            Console.WriteLine("Введите строку:");
+            string text = Console.ReadLine();
+
+            text = DeleteLetters(text);
+
+            Console.WriteLine($"\nРезультат: {text}");
         }
         #endregion
 
