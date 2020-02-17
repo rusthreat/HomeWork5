@@ -574,53 +574,28 @@ namespace Example_005
             // поиск максимальной длины
             for (int i = 0; i < array.Length; i++)
             {
-                if (len < array.Length)
+                if (len < array[i].Length)
                 {
-                    len = array.Length;
+                    len = array[i].Length;
                 }
-                Console.WriteLine(array[i]);
             }
+            Console.WriteLine(len);
 
-            string[] result = new string[];
+            string[] result = new string[1];
             int n = 0;
 
             for (int i = 0; i < array.Length; i++)
             {
-                if (len == array.Length)
+                if (len == array[i].Length)
                 {
                     result[n] = array[i];
                     n++;
+                    Array.Resize(ref result, n+1);
+
                 }
-                Console.WriteLine(array[i]);
             }
 
             return result;
-            //for (int i = 0; i < text.Length; i++)
-            //{
-            //    if (text[i] == ' ')
-            //    {
-            //        if (new_word.Length < short_word.Length)
-            //        {
-            //            short_word = new_word;
-            //        }
-            //        new_word = "";
-            //    }
-            //    else
-            //    {
-            //        new_word = new_word + text[i];
-            //    }
-
-            //}
-
-            // обработка ситуации, когда самое короткое слово - последнее
-            //if (new_word.Length < short_word.Length)
-            //{
-            //    return new_word;
-            //}
-            //else
-            //{
-            //    return short_word;
-            //}
         }
 
         /// <summary>
@@ -687,13 +662,17 @@ namespace Example_005
         // Пример: ПППОООГГГООООДДДААА >>> ПОГОДА
         // Пример: Ххххоооорррооошшшиий деееннннь >>> хороший день
         // 
+
+        /// <summary>
+        /// Задание 3. Метод, удаляющий лишние буквы в слове
+        /// </summary>
         static string DeleteLetters(string text)
         {
+            string str = "";
+            char prev;
+          
             for (int i = 0; i < text.Length; i++)
             {
-                string str = "";
-                char prev;
-
                 if (i == 0)
                 {
                     str = str + text[i];
@@ -730,10 +709,86 @@ namespace Example_005
         //             http://ru.wikipedia.org/wiki/Арифметическая_прогрессия
         //             http://ru.wikipedia.org/wiki/Геометрическая_прогрессия
         //
-        static void GeomProgression()
+        
+        /// <summary>
+        /// Задание 3. Метод, определяющий, является ли последовательность арифметической
+        /// </summary>
+        static void MathProgressionCheck(List<int> numbs)
         {
-        
-        
+            if (numbs.Count <= 2)
+            {
+                Console.WriteLine("Является арифметической последовательностью");
+                return;
+            }
+            
+            // разность 
+            int d = 1;
+
+            for (int i = 1; i < numbs.Count; i++)
+            {
+                if (i == 1)
+                {
+                    d = numbs[i] - numbs[i - 1];
+                }
+                else
+                {
+                    if (d != numbs[i] - numbs[i - 1])
+                    {
+                        Console.WriteLine("Не является арифметической последовательностью");
+                        return;
+                    }
+                }
+            }
+            Console.WriteLine("Является арифметической последовательностью");
+            return;
+        }
+
+        static void GeomProgressionCheck(string text)
+        {
+            if (numbs.Count <= 2)
+            {
+                Console.WriteLine("Является арифметической последовательностью");
+                return;
+            }
+
+            // разность 
+            int d = 1;
+
+            for (int i = 1; i < numbs.Count; i++)
+            {
+                if (i == 1)
+                {
+                    d = numbs[i] - numbs[i - 1];
+                }
+                else
+                {
+                    if (d != numbs[i] - numbs[i - 1])
+                    {
+                        Console.WriteLine("Не является арифметической последовательностью");
+                        return;
+                    }
+                }
+            }
+            Console.WriteLine("Является арифметической последовательностью");
+            return;
+        }
+
+        static void ProgressionCheck()
+        {
+            Console.WriteLine("Задание 4. Проверка прогрессий");
+            Console.WriteLine("\nУкажите количество чисел:");
+            int q = Convert.ToInt32(Console.ReadLine());
+
+            List<int> numbs = new List<int>();
+            Console.WriteLine("\nВведите числа");
+
+            for (int i = 0; i < q; i++)
+            {
+                numbs.Add(Convert.ToInt32(Console.ReadLine()));
+            }
+
+            MathProgressionCheck(numbs);
+            GeomProgressionCheck(numbs);
         }
         #endregion
 
@@ -777,7 +832,7 @@ namespace Example_005
                     case 1: Matrix(); break;
                     case 2: LengthSearch(); break;
                     case 3: ShortText(); break;
-                    case 4: GeomProgression(); break;
+                    case 4: ProgressionCheck(); break;
                     case 5: AkkermanFunction(); break;
                     default: 
                     {
