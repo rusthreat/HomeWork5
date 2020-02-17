@@ -711,7 +711,7 @@ namespace Example_005
         //
         
         /// <summary>
-        /// Задание 3. Метод, определяющий, является ли последовательность арифметической
+        /// Задание 4. Метод, определяющий, является ли последовательность арифметической
         /// </summary>
         static void MathProgressionCheck(List<int> numbs)
         {
@@ -743,6 +743,9 @@ namespace Example_005
             return;
         }
 
+        /// <summary>
+        /// Задание 4. Метод, определяющий, является ли последовательность геометрической
+        /// </summary>
         static void GeomProgressionCheck(string text)
         {
             if (numbs.Count <= 2)
