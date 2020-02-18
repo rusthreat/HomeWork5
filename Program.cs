@@ -711,16 +711,16 @@ namespace Example_005
         //
         
         /// <summary>
-        /// Задание 4. Метод, определяющий, является ли последовательность арифметической
+        /// Задание 4. Метод, определяющий, является ли последовательность арифметической или геометрической
         /// </summary>
         static void MathProgressionCheck(List<int> numbs)
         {
             if (numbs.Count <= 2)
             {
-                Console.WriteLine("Является арифметической последовательностью");
+                Console.WriteLine("Не является арифметической последовательностью");
                 return;
             }
-            
+
             // разность 
             int d = 1;
 
@@ -746,33 +746,34 @@ namespace Example_005
         /// <summary>
         /// Задание 4. Метод, определяющий, является ли последовательность геометрической
         /// </summary>
-        static void GeomProgressionCheck(string text)
+        static void GeomProgressionCheck(List<int> numbs)
         {
             if (numbs.Count <= 2)
             {
-                Console.WriteLine("Является арифметической последовательностью");
+                Console.WriteLine("Не является геометрической последовательностью");
                 return;
             }
 
-            // разность 
+            // знаменатель 
             int d = 1;
 
             for (int i = 1; i < numbs.Count; i++)
             {
                 if (i == 1)
                 {
-                    d = numbs[i] - numbs[i - 1];
+                    d = numbs[i] / numbs[i - 1];
                 }
                 else
                 {
-                    if (d != numbs[i] - numbs[i - 1])
+                    if (d != numbs[i] / numbs[i - 1])
                     {
-                        Console.WriteLine("Не является арифметической последовательностью");
+                        Console.WriteLine("Не является геометрической последовательностью");
                         return;
                     }
                 }
             }
-            Console.WriteLine("Является арифметической последовательностью");
+
+            Console.WriteLine("Является геометрической последовательностью");
             return;
         }
 
@@ -804,10 +805,36 @@ namespace Example_005
         //         = A(n - 1, A(n, m - 1)), если n> 0, m > 0.
         // 
         // Весь код должен быть откоммментирован
+        /// <summary>
+        /// Задание 5. Расчет функции Аккермана
+        /// </summary>
+        public static int AkkermanFunctionCalc(int n, int m)
+        {
+            if (n == 0)
+            {
+                return (m + 1);
+            }
+            else if (n != 0 && m == 0)
+            {
+                return AkkermanFunctionCalc(n - 1, 1);
+            }
+            else 
+            {
+                return AkkermanFunctionCalc(n - 1, AkkermanFunctionCalc(n, m - 1));
+            }
+        }
+
         static void AkkermanFunction()
         {
-        
-        
+            Console.WriteLine("Задание 5. Вычисление функции Аккермана A(n, m)");
+            Console.WriteLine("Введите n:");
+            int n = Convert.ToInt32(Console.ReadLine());
+            
+            Console.WriteLine("Введите m:");
+            int m = Convert.ToInt32(Console.ReadLine());
+
+            int result = AkkermanFunctionCalc(n, m);
+            Console.WriteLine($"\nРезультат расчета: {result}");
         }
         #endregion
 
@@ -826,6 +853,7 @@ namespace Example_005
                 Console.WriteLine("3 - Задание 3 (удаление лишних букв)");
                 Console.WriteLine("4 - Задание 4 (проверка на геом. прогрессию)");
                 Console.WriteLine("5 - Задание 5 (вычисление функции Аккермана)");
+                Console.WriteLine("6 - Выход");
                 int item = int.Parse(Console.ReadLine());
 
                 Console.Clear();
@@ -837,12 +865,7 @@ namespace Example_005
                     case 3: ShortText(); break;
                     case 4: ProgressionCheck(); break;
                     case 5: AkkermanFunction(); break;
-                    default: 
-                    {
-                        Console.WriteLine("Укажите верное значение (1-5)");
-                        Console.ReadKey();
-                        continue;
-                    }
+                    case 6: break;
                 }
              
                 Console.WriteLine("\n\nВернуться в главное меню? y/n");
