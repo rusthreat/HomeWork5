@@ -532,9 +532,11 @@ namespace Example_005
             string short_word = text;
             string new_word = "";
 
+
+
             for (int i = 0; i < text.Length; i++)
             {
-                if (text[i] == ' ')
+                if (text[i] == ' ' || new_word != "")
                 {
                     if (new_word.Length < short_word.Length)
                     {
@@ -640,7 +642,7 @@ namespace Example_005
                     continue;
                 }
 
-                Console.WriteLine("\n\nВернуться в меню Задания 1? y/n");
+                Console.WriteLine("\n\nВернуться в меню Задания 2? y/n");
                 str = Console.ReadLine();
 
                 if (str == "y")
@@ -713,12 +715,11 @@ namespace Example_005
         /// <summary>
         /// Задание 4. Метод, определяющий, является ли последовательность арифметической или геометрической
         /// </summary>
-        static void MathProgressionCheck(List<int> numbs)
+        static bool MathProgressionCheck(List<int> numbs)
         {
             if (numbs.Count <= 2)
             {
-                Console.WriteLine("Не является арифметической последовательностью");
-                return;
+                return false;
             }
 
             // разность 
@@ -734,24 +735,21 @@ namespace Example_005
                 {
                     if (d != numbs[i] - numbs[i - 1])
                     {
-                        Console.WriteLine("Не является арифметической последовательностью");
-                        return;
+                        return false;
                     }
                 }
             }
-            Console.WriteLine("Является арифметической последовательностью");
-            return;
+            return true;
         }
 
         /// <summary>
         /// Задание 4. Метод, определяющий, является ли последовательность геометрической
         /// </summary>
-        static void GeomProgressionCheck(List<int> numbs)
+        static bool GeomProgressionCheck(List<int> numbs)
         {
             if (numbs.Count <= 2)
             {
-                Console.WriteLine("Не является геометрической последовательностью");
-                return;
+                return false;
             }
 
             // знаменатель 
@@ -767,14 +765,12 @@ namespace Example_005
                 {
                     if (d != numbs[i] / numbs[i - 1])
                     {
-                        Console.WriteLine("Не является геометрической последовательностью");
-                        return;
+                        return false;
                     }
                 }
             }
 
-            Console.WriteLine("Является геометрической последовательностью");
-            return;
+            return true;
         }
 
         static void ProgressionCheck()
@@ -791,8 +787,27 @@ namespace Example_005
                 numbs.Add(Convert.ToInt32(Console.ReadLine()));
             }
 
-            MathProgressionCheck(numbs);
-            GeomProgressionCheck(numbs);
+            // Проверка на арифметическую прогрессию
+            bool m = MathProgressionCheck(numbs);
+
+            if (m)
+            {
+                Console.WriteLine("\nЯвляется математической последовательностью");
+            }
+            else
+            {
+                Console.WriteLine("\nНе является математической последовательностью");
+            }
+
+            bool g = GeomProgressionCheck(numbs);
+            if (g)
+            {
+                Console.WriteLine("\nЯвляется геометрической последовательностью");
+            }
+            else
+            {
+                Console.WriteLine("\nНе является геометрической последовательностью");
+            }
         }
         #endregion
 
