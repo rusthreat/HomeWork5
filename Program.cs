@@ -532,21 +532,25 @@ namespace Example_005
             string short_word = text;
             string new_word = "";
 
-
-
             for (int i = 0; i < text.Length; i++)
             {
-                if (text[i] == ' ' || new_word != "")
+                if (text[i] == ' ')
                 {
-                    if (new_word.Length < short_word.Length)
+                    if (new_word != "")
                     {
-                        short_word = new_word;
+                        if (new_word.Length < short_word.Length)
+                        {
+                            short_word = new_word;
+                        }
+                        new_word = "";
                     }
-                    new_word = "";
                 }
                 else
                 {
-                    new_word = new_word + text[i];
+                    if (new_word != "")
+                    {
+                        new_word = new_word + text[i];
+                    }
                 }
 
             }
@@ -800,6 +804,7 @@ namespace Example_005
             }
 
             bool g = GeomProgressionCheck(numbs);
+
             if (g)
             {
                 Console.WriteLine("\nЯвляется геометрической последовательностью");
