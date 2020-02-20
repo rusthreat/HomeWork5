@@ -527,43 +527,37 @@ namespace Example_005
         /// Задание 2.1. Метод, принимающий  текст и возвращающий слово, содержащее минимальное количество букв
         /// </summary>
         /// 
-        static string GetShortWord(string text)
+        static string[] GetShortWord(string text)
         {
-            string short_word = text;
-            string new_word = "";
+            // разделение строки на слова методом Split
+            string[] array = text.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
 
-            for (int i = 0; i < text.Length; i++)
+            int len = text.Length;
+
+            // поиск минимальной длины
+            for (int i = 0; i < array.Length; i++)
             {
-                if (text[i] == ' ')
+                if (len > array[i].Length)
                 {
-                    if (new_word != "")
-                    {
-                        if (new_word.Length < short_word.Length)
-                        {
-                            short_word = new_word;
-                        }
-                        new_word = "";
-                    }
+                    len = array[i].Length;
                 }
-                else
+            }
+            Console.WriteLine(len);
+
+            string[] result = new string[1];
+            int n = 0;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (len == array[i].Length)
                 {
-                    if (new_word != "")
-                    {
-                        new_word = new_word + text[i];
-                    }
+                    result[n] = array[i];
+                    n++;
+                    Array.Resize(ref result, n + 1);
                 }
-
             }
 
-            // обработка ситуации, когда самое короткое слово - последнее
-            if (new_word.Length < short_word.Length)
-            {
-                return new_word;
-            }
-            else
-            {
-                return short_word;
-            }
+            return result;
         }
 
         /// <summary>
@@ -613,8 +607,8 @@ namespace Example_005
             {
                 Console.Clear();
                 Console.WriteLine("Задание 2. Выберите задание:");
-                Console.WriteLine("1 - Задание 2.1. (Поиск самого короткого слова)");
-                Console.WriteLine("2 - Задание 2.2. (Удаление лишних букв в словах)");
+                Console.WriteLine("1 - Задание 2.1. (Поиск коротких слов)");
+                Console.WriteLine("2 - Задание 2.2. (Поиск длинных слов)");
                 int item = int.Parse(Console.ReadLine());
 
                 if (item == 1)
@@ -622,9 +616,13 @@ namespace Example_005
                     Console.WriteLine("Введите строку:");
                     string text = Console.ReadLine();
 
-                    text = GetShortWord(text);
+                    string[] array = GetShortWord(text);
 
-                    Console.WriteLine($"\nСамое короткое слово: {text}");
+                    Console.WriteLine($"Самые короткие слова:");
+                    foreach (string word in array)
+                    {
+                        Console.WriteLine(word);
+                    }
                 }
                 else if (item == 2)
                 {
